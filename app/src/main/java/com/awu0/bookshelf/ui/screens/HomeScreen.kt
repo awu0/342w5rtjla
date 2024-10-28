@@ -1,5 +1,6 @@
 package com.awu0.bookshelf.ui.screens
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -9,7 +10,8 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.awu0.bookshelf.model.Book
+import com.awu0.bookshelf.model.VolumeInfo
+import com.awu0.bookshelf.model.VolumeItem
 
 @Composable
 fun HomeScreen(
@@ -19,7 +21,7 @@ fun HomeScreen(
     when (bookshelfUiState) {
         is BookshelfUiState.Loading -> Text("Loading")
 
-        is BookshelfUiState.Success -> BookshelfGridScreen(bookshelfUiState.books, modifier)
+        is BookshelfUiState.Success -> BookshelfGridScreen(bookshelfUiState.volumeItems, modifier)
 
         is BookshelfUiState.Error -> Text("Error")
     }
@@ -27,7 +29,7 @@ fun HomeScreen(
 
 @Composable
 fun BookshelfGridScreen(
-    books: List<Book>,
+    volumeItems: List<VolumeItem>,
     modifier: Modifier = Modifier,
     contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
@@ -36,8 +38,18 @@ fun BookshelfGridScreen(
         modifier = modifier.padding(horizontal = 4.dp),
         contentPadding = contentPadding
     ) {
-        items(items = books, key = { book -> book.title }) { book ->
-            Text(book.title)
+        items(items = volumeItems, key = { volumeItem -> volumeItem.id}) { volumeItem ->
+            val book : VolumeInfo = volumeItem.volumeInfo
+
+            Column {
+                Text(book.title)
+
+                if (book.authors.isNullOrEmpty()) {
+                    Text("Authors: Unknown")
+                } else {
+                    Text("Authors: ${book.authors.joinToString(", ")}")
+                }
+            }
         }
     }
 }

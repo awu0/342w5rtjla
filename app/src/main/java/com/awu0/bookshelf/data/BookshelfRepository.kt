@@ -1,36 +1,15 @@
 package com.awu0.bookshelf.data
 
-import com.awu0.bookshelf.model.Book
+import com.awu0.bookshelf.model.VolumeItem
+import com.awu0.bookshelf.network.BookshelfApiService
 
 interface BookshelfRepository {
-    suspend fun getBooks(): List<Book>
+    suspend fun getVolumeItems(): List<VolumeItem>
 }
 
 class NetworkBookshelfRepository(
-    // api service
+    private val bookshelfApiService: BookshelfApiService
 ) : BookshelfRepository {
-    override suspend fun getBooks(): List<Book> {
-        TODO("Not yet implemented")
-    }
-}
-
-/**
- * temp; for testing
- */
-class TestBookshelfRepository : BookshelfRepository {
-    override suspend fun getBooks(): List<Book> {
-        val books : MutableList<Book> = mutableListOf()
-
-        for (i in 1..15) {
-            books.add(
-                Book(
-                    title = "Book Title $i",
-                    author = "Author Name $i",
-                    thumbnail = "Thumbnail $i"
-                )
-            )
-        }
-
-        return books
-    }
+    /** Fetches the books from the bookshelfApi **/
+    override suspend fun getVolumeItems(): List<VolumeItem> = bookshelfApiService.getVolumes().items
 }

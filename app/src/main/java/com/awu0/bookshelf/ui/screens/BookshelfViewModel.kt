@@ -11,12 +11,12 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.awu0.bookshelf.BookshelfApplication
 import com.awu0.bookshelf.data.BookshelfRepository
-import com.awu0.bookshelf.model.Book
+import com.awu0.bookshelf.model.VolumeItem
 import kotlinx.coroutines.launch
 import java.io.IOException
 
 sealed interface BookshelfUiState {
-    data class Success(val books: List<Book>) : BookshelfUiState
+    data class Success(val volumeItems: List<VolumeItem>) : BookshelfUiState
     data object Loading : BookshelfUiState
     data object Error : BookshelfUiState
 }
@@ -40,7 +40,7 @@ class BookshelfViewModel(
 
             // make a request to get the books
             bookshelfUiState = try {
-                val result = bookshelfRepository.getBooks()
+                val result = bookshelfRepository.getVolumeItems()
                 BookshelfUiState.Success(result)
             } catch (e: IOException) {
                 BookshelfUiState.Error
