@@ -1,6 +1,7 @@
 package com.awu0.bookshelf.ui
 
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
@@ -28,16 +29,17 @@ fun BookshelfApp() {
     Scaffold(
         modifier = Modifier.nestedScroll(scrollBehavior.nestedScrollConnection),
         topBar = { BookshelfTopBar(scrollBehavior = scrollBehavior) }
-    ) {
+    ) { contentPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(contentPadding)
         ) {
             val bookshelfViewModel: BookshelfViewModel =
                 viewModel(factory = BookshelfViewModel.Factory)
 
             HomeScreen(
                 bookshelfUiState = bookshelfViewModel.bookshelfUiState,
-                contentPadding = it
             )
         }
     }
@@ -59,16 +61,4 @@ fun BookshelfTopBar(
         },
         modifier = modifier
     )
-}
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun BookshelfAppPreview() {
-    BookshelfTheme {
-        Surface(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            BookshelfApp()
-        }
-    }
 }

@@ -15,7 +15,6 @@ import com.awu0.bookshelf.model.Book
 fun HomeScreen(
     bookshelfUiState: BookshelfUiState,
     modifier: Modifier = Modifier,
-    contentPadding: PaddingValues = PaddingValues(0.dp)
 ) {
     when (bookshelfUiState) {
         is BookshelfUiState.Loading -> Text("Loading")
