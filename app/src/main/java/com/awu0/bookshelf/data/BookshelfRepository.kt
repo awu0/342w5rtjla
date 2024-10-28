@@ -17,9 +17,20 @@ class NetworkBookshelfRepository(
 /**
  * temp; for testing
  */
-class LocalBookshelfRepository : BookshelfRepository {
+class TestBookshelfRepository : BookshelfRepository {
     override suspend fun getBooks(): List<Book> {
-        val book = Book(title = "My Book Title", author = "Author Name", thumbnail = "picture")
-        return listOf(book)
+        val books : MutableList<Book> = mutableListOf()
+
+        for (i in 1..15) {
+            books.add(
+                Book(
+                    title = "Book Title $i",
+                    author = "Author Name $i",
+                    thumbnail = "Thumbnail $i"
+                )
+            )
+        }
+
+        return books
     }
 }

@@ -9,5 +9,5 @@ class DefaultAppContainer : AppContainer {
 
     // temp getting repo
     override val bookshelfRepository: BookshelfRepository
-        get() = LocalBookshelfRepository()
+        get() = TestBookshelfRepository()
 }
