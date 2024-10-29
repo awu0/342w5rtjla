@@ -7,4 +7,5 @@ data class VolumeInfo(
     val title: String,
     val subtitle: String? = null,
     val authors: List<String>? = null,
+    val imageLinks: ImageLinks? = null
 )
