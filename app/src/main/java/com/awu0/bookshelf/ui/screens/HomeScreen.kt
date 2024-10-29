@@ -86,6 +86,10 @@ fun BookshelfGridScreen(
 
                 Text(book.title, fontWeight = FontWeight.Bold)
 
+                if (!book.subtitle.isNullOrEmpty()) {
+                    Text(book.subtitle, fontWeight = FontWeight.Bold)
+                }
+
                 if (book.authors.isNullOrEmpty()) {
                     Text("Authors: Unknown")
                 } else {
